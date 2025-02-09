@@ -20,7 +20,11 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-    console.log("Some one connected", socket)
+    console.log("Some one connected", socket.id)
+
+    socket.on('emoji', (data) => {
+        socket.broadcast.emit('new_emoji', data)
+    })
 })
 
 server.listen(PORT, () => {
